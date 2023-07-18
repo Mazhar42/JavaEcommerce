@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body{
+            margin:0;
+        }
+<!--        .product-container {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            flex-wrap: wrap;-->
+<!--        }-->
+
+<!--        .product {-->
+<!--            width: 300px;-->
+<!--            margin: 20px;-->
+<!--            padding: 20px;-->
+<!--            background-color: #fff;-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .product h3 {-->
+<!--            font-size: 18px;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        .product p {-->
+<!--            font-size: 16px;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--        .btn {-->
+<!--            display: inline-block;-->
+<!--            background-color: blue;-->
+<!--            color: #fff;-->
+<!--            text-decoration: none;-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+        td{
+            padding: 10px;
+        }
+        .add{
+            background-color: #555;
+            color: white;
+            border-radius: 10px;
+        }
+
+        tr{
+         margin-bottom: 5px;
+        }
+    </style>
+    <script type="module" src="/static/app.js" defer></script>
+</head>
+<body>
+<!--    <div id="product-container"></div>-->
+<h1>Product List</h1>
+<table>
+    <tr>
+        <th>Sku</th>
+        <th>Name</th>
+        <th>Categories</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.sku}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.categories}"></td>
+        <td th:text="${product.price}"></td>
+        <td class="add">Add to Cart</td>
+    </tr>
+</table>
+</body>
+</html>
