@@ -27,9 +27,8 @@ public class HomeController {
         String uri = "http://localhost:8080/api/v1/products";
         ResponseEntity<Product[]> response = restTemplate.getForEntity(uri, Product[].class);
         Product[] products = response.getBody();
-        System.out.println(Arrays.asList(products));
         model.addAttribute("products",products);
-//        model.addAttribute("message", "Hello, World! Hello");
+        model.addAttribute("javaVariable", "Hello from Java!");
         return "home";
     }
 }

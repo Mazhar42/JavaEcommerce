@@ -1,5 +1,6 @@
 package dev.ecommerce.api;
 
+import dev.ecommerce.db.StaticDB;
 import dev.ecommerce.model.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +21,7 @@ public class ProductRestController {
     }
 
     private List<Product> getAllProducts(){
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1L,"101001","Hp elitebook G5", "Laptop",499.99));
-        products.add(new Product(2L,"101002","Asus", "Laptop",699.99));
-
-        return products;
+        return StaticDB.products;
     }
 }
 

@@ -7,42 +7,11 @@
         body{
             margin:0;
         }
-<!--        .product-container {-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            flex-wrap: wrap;-->
-<!--        }-->
 
-<!--        .product {-->
-<!--            width: 300px;-->
-<!--            margin: 20px;-->
-<!--            padding: 20px;-->
-<!--            background-color: #fff;-->
-<!--            border-radius: 5px;-->
-<!--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        .product h3 {-->
-<!--            font-size: 18px;-->
-<!--            margin-bottom: 10px;-->
-<!--        }-->
-
-<!--        .product p {-->
-<!--            font-size: 16px;-->
-<!--            margin-bottom: 10px;-->
-<!--        }-->
-<!--        .btn {-->
-<!--            display: inline-block;-->
-<!--            background-color: blue;-->
-<!--            color: #fff;-->
-<!--            text-decoration: none;-->
-<!--            padding: 10px 20px;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
         td{
             padding: 10px;
         }
+
         .add{
             background-color: #555;
             color: white;
@@ -66,12 +35,25 @@
         <th>Price</th>
     </tr>
     <tr th:each="product : ${products}">
-        <td th:text="${product.sku}"></td>
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.categories}"></td>
-        <td th:text="${product.price}"></td>
-        <td class="add">Add to Cart</td>
+        <td th:text="${product.getSku()}"></td>
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getCategories()}"></td>
+        <td th:text="${product.getPrice()}"></td>
+        <td><a th:onclick="addToCart(event,[[${product.id}]])" href="#"> Add To Cart</a></td>
     </tr>
 </table>
+
+<script>
+    function addToCart(event,id) {
+        fetch(`http://localhost:8080/api/v1/cart/add/${id}`)
+            .then((response) => response.json())
+            .then(data => {
+                let totalPrice = 0
+                const res = data.map(item=>item.price*item.qty)
+                console.log(res.reduce((a,b)=>a+b,0))
+        })
+    }
+</script>
 </body>
 </html>
+
