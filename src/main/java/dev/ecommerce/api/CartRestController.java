@@ -1,6 +1,5 @@
 package dev.ecommerce.api;
 
-import dev.ecommerce.cart.Cart;
 import dev.ecommerce.cart.CartItem;
 import dev.ecommerce.db.StaticDB;
 import dev.ecommerce.model.Product;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -35,6 +33,12 @@ public class CartRestController {
             }
         }
 
+        return StaticDB.cart.get(UserID);
+    }
+
+    @GetMapping("/all")
+    public List<CartItem> allCartItem(){
+        int UserID = 1;
         return StaticDB.cart.get(UserID);
     }
 }

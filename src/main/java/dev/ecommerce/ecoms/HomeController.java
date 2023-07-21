@@ -1,5 +1,7 @@
 package dev.ecommerce.ecoms;
 
+import dev.ecommerce.cart.Cart;
+import dev.ecommerce.cart.CartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +20,21 @@ public class HomeController {
     @Autowired
     private RestTemplate restTemplate;
     @GetMapping("")
-//    @ResponseBody
     public String index(Model model){
-//        String uri = "http://localhost:8080/api/v1/products/2";
-//        Product response = restTemplate.getForObject(uri,Product.class);
-//        System.out.println(response);
-
         String uri = "http://localhost:8080/api/v1/products";
         ResponseEntity<Product[]> response = restTemplate.getForEntity(uri, Product[].class);
         Product[] products = response.getBody();
         model.addAttribute("products",products);
-        model.addAttribute("javaVariable", "Hello from Java!");
         return "home";
     }
+
+    @GetMapping("/checkout")
+    public String checkout(Model model){
+        String uri = "http://localhost:8080/api/v1/cart/all";
+        ResponseEntity<CartItem[]> response = restTemplate.getForEntity(uri, CartItem[].class);
+        CartItem[] cartItems = response.getBody();
+        model.addAttribute("cartItems",cartItems);
+        return "test";
+    }
 }
+

@@ -21,27 +21,52 @@
         tr{
          margin-bottom: 5px;
         }
+
+        .main{
+            width:100%;
+            display:flex;
+        }
+        .productlist {
+            flex: 1;
+        }
+        .cart{
+            flex:1;
+            display:flex;
+            justify-content: flex-end;
+        }
+        .cart-res{
+            padding-right: 10px;
+            font-size: 2rem;
+        }
+
     </style>
     <script type="module" src="/static/app.js" defer></script>
 </head>
 <body>
-<!--    <div id="product-container"></div>-->
-<h1>Product List</h1>
-<table>
-    <tr>
-        <th>Sku</th>
-        <th>Name</th>
-        <th>Categories</th>
-        <th>Price</th>
-    </tr>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.getSku()}"></td>
-        <td th:text="${product.getName()}"></td>
-        <td th:text="${product.getCategories()}"></td>
-        <td th:text="${product.getPrice()}"></td>
-        <td><a th:onclick="addToCart(event,[[${product.id}]])" href="#"> Add To Cart</a></td>
-    </tr>
-</table>
+<div class="main">
+    <div class="productlist">
+        <h1>Product List</h1>
+        <table>
+            <tr>
+                <th>Sku</th>
+                <th>Name</th>
+                <th>Categories</th>
+                <th>Price</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getSku()}"></td>
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getCategories()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td><a th:onclick="addToCart(event,[[${product.id}]])" href="#"> Add To Cart</a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="cart">
+        <a class="cart-res" th:href="@{/checkout}">Cart (<span id="qty" class="qty">0</span>)</a>
+    </div>
+</div>
+
 
 <script>
     function addToCart(event,id) {
@@ -49,8 +74,12 @@
             .then((response) => response.json())
             .then(data => {
                 let totalPrice = 0
+                const qty = data.map(item=>item.qty).reduce((a,b)=>a+b,0)
                 const res = data.map(item=>item.price*item.qty)
-                console.log(res.reduce((a,b)=>a+b,0))
+                const result = res.reduce((a,b)=>a+b,0)
+                const cartQty = document.getElementById('qty')
+                cartQty.innerHTML = qty
+
         })
     }
 </script>

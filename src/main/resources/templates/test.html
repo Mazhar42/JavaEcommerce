@@ -1,11 +1,78 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Test: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><head>
-    <meta charset="UTF-8">
+    <title>Cart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body{
+            margin:0;
+        }
+
+        td{
+            padding: 10px;
+        }
+
+        .add{
+            background-color: #555;
+            color: white;
+            border-radius: 10px;
+        }
+
+        tr{
+         margin-bottom: 5px;
+        }
+
+        .main{
+            width:100%;
+            display:flex;
+        }
+        .productlist {
+            flex: 1;
+        }
+        .cart{
+            flex:1;
+            display:flex;
+            justify-content: flex-end;
+        }
+        .cart-res{
+            padding-right: 10px;
+            font-size: 2rem;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>Cart</h1>
+    <table>
+        <tr>
+            <th>Sku</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>SubTotal</th>
+
+        </tr>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.getId()}"></td>
+            <td th:text="${item.getItemName()}"></td>
+            <td th:text="${item.getPrice()}"></td>
+            <td th:text="${item.getQty()}"></td>
+            <td th:text="${item.getPrice() * item.getQty()}"></td>
+        </tr>
+    </table>
+    <h3>Total Price  : <span class="totalPrice"></span></h3>
+
+<script>
+        fetch(`http://localhost:8080/api/v1/cart/all`)
+            .then((response) => response.json())
+            .then(data => {
+                let totalPrice = 0
+                const qty = data.map(item=>item.qty).reduce((a,b)=>a+b,0)
+                const res = data.map(item=>item.price*item.qty)
+                const result = res.reduce((a,b)=>a+b,0)
+                const cartTotal = document.querySelector('.totalPrice')
+                cartTotal.innerHTML = result
+        })
+</script>
 </body>
 </html>
