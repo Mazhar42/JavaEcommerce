@@ -23,5 +23,6 @@ public class ProductRestController {
     private List<Product> getAllProducts(){
         return StaticDB.products;
     }
+
 }
 
