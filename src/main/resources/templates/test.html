@@ -71,7 +71,7 @@
                 const res = data.map(item=>item.price*item.qty)
                 const result = res.reduce((a,b)=>a+b,0)
                 const cartTotal = document.querySelector('.totalPrice')
-                cartTotal.innerHTML = result
+                cartTotal.innerHTML = result.toFixed(2)
         })
 </script>
 </body>
