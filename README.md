@@ -11,6 +11,7 @@ There will be two pages in the frontend.First one is the product list page where
 - Gradle - Groovy
 - IntelliJ IDEA Community Edition
 - Git
+- JUnit 
 
 # Getting Started 
 
@@ -23,10 +24,36 @@ git clone https://github.com/Mazhar42/JavaEcommerce.git
 
 cd JavaEcommerce
 
-.\gradlew.bat bootrun
+.\gradlew.bat bootRun
 ```
 
 Open [http://localhost:8080](http://localhost:8080) with your browser to see the result.
 
 You can see the product API with your browser in this url : [http://localhost:8080/api/v1/products](http://localhost:8080/api/v1/products) as well as the Cart API in this url :  [http://localhost:8080/api/v1/cart/all](http://localhost:8080/api/v1/products/cart/all).
 
+# Testing
+
+This repository contains test cases and test automation scripts for testing an ecommerce application. The tests cover various aspects of the application, such as product list and shopping cart functionality.
+
+## Features
+- Test cases for different e-commerce application scenarios.
+- Test automation scripts using JUnit testing.
+
+## Installation
+
+To set up the testing environment and execute the test scripts, follow these steps:
+
+1. Clone this repository to your local machine using:
+
+```bash
+git clone https://github.com/Mazhar42/JavaEcommerce.git
+
+cd JavaEcommerce
+
+.\gradlew.bat bootTestRun
+```
+You can also use this command to test the application,
+
+```bash
+./gradlew clean test --info
+```
