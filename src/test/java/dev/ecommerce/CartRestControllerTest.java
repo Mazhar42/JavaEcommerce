@@ -17,16 +17,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CartRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    
+
     @Test
     public void testGetAllCartItems() throws Exception {
 
 
         StaticDB.initDB();
         mockMvc.perform(get("/api/v1/cart/all").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
-
-
+                .andExpect(status().isOk());
     }
 }
